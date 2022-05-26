@@ -1,0 +1,103 @@
+@charset "UTF-8";
+@import url(./fonts.css);
+@import url(./reset.css);
+
+#root {width:100%;}
+#root #signup-form {padding:20px 0 30px 0; width:900px; margin:0 auto;}
+
+/* 회원가입 타이틀 박스 ---------------------------------------------------------------------------------------- */
+#root #signup-form #page-title-box {width:100%; padding:0 0 45px 0; display:flex;}
+#root #signup-form #page-title-box span {font-size:32px; font-weight:700; font-family:'Noto Sans KR'; color:#3a3a4a;}
+#root #signup-form #page-title-box ul {display:flex;}
+#root #signup-form #page-title-box ul li {display:inline-block; margin:auto 0 auto auto;}
+#root #signup-form #page-title-box ul li a {}
+#root #signup-form #page-title-box ul li a i {}
+#root #signup-form #page-title-box ul li a .print-icon {}
+#root #signup-form #page-title-box ul li a .share-icon {}
+/* #root #signup-form #page-title-box ul li a img::before {content:''; width:40px; height:40px; background:#f6f6f6; border-radius:50%;} */
+
+
+/* 현재 페이지 상태 보여주는 bar --------------------------------------------------------------------------------- */
+#root #signup-form #info-bar-box {width:100%; padding:0 0 40px 0;}
+#root #signup-form #info-bar-box ul {display:flex;}
+#root #signup-form #info-bar-box ul li {display:flex; width:297px; height:45px; border:1px solid #a7acb4; text-align:center;}
+#root #signup-form #info-bar-box ul .current-service::before {background:url(../../img/arrow-progress-on-2.png) no-repeat;}
+#root #signup-form #info-bar-box ul li strong {font-size:18px; margin:0 10px;}
+#root #signup-form #info-bar-box ul li span {display:block; color:#3a3a4a; font-size:15px; font-weight:400;}
+
+
+/* 회원가입에 대한 설명이 있는 박스 -------------------------------------------------------------------------------- */
+#root #signup-form #info-text-box {border:1px solid #e1e3e6; padding:25px 30px;}
+#root #signup-form #info-text-box p {font-size:15px; color:#6c6d73; font-weight:400;}
+#root #signup-form #info-text-box p span {color:#d7021b;}
+
+
+/* 회원가입 입력사항 form box ----------------------------------------------------------------------------------- */
+#root #signup-form #form-box {width:900px; margin:0 auto;}
+#root #signup-form #form-box .top-comment {padding:40px 0 0 0;}
+#root #signup-form #form-box .top-comment p {color:#6c6d73; font-size:13px; font-weight:400;line-height:19.5px; padding:10px; border-bottom:2px solid #333;}
+#root #signup-form #form-box .top-comment p::before {content:''; display:inline-block; width:5px; height:5px; border-radius:50%; background:#d7021b; margin:auto 5px 2px 0;}
+
+#root #signup-form #form-box form {width:100%;}
+#root #signup-form #form-box form ul {width:100%;}
+#root #signup-form #form-box form ul li {display:flex; border-bottom:1px solid #e1e3e6;}
+
+/* 회원가입 form-box의 왼쪽 label */
+#root #signup-form #form-box form ul li .left {width:155px; height:66px; display:flex; padding:13px 16px 13px 0; }
+#root #signup-form #form-box form ul li .left span {height:40px; font-size:15px; color:#3a3a4a; font-weight:400; line-height:40px;}
+#root #signup-form #form-box form ul li .left span.red-dot::after {content:''; display:inline-block; width:5px; height:5px; border-radius:50%; background:#d7021b; margin:auto 0 3px 7px;}
+#root #signup-form #form-box form ul li .left span.pwd-span {line-height:22.5px;}
+
+
+/* 회원가입 form-box의 오른쪽 내용 입력 부분 */
+#root #signup-form #form-box form ul li .right {display:flex; padding:13px 16px 13px 0; margin:0 0 0 17px;}
+#root #signup-form #form-box form ul li .right:nth-last-child() {display:flex; padding:13px 16px 13px 0; margin:0 0 0 17px;}
+/* 회원가입 인풋 전체 공통 스타일 */
+#root #signup-form #form-box form ul li .right .input-style {margin:auto 11px auto 0; border-radius:5px; height:40px; background:#fff2f2; border:1px solid #ffd7d2;}
+#root #signup-form #form-box form ul li .right .input-style::placeholder {color:#6c6d73; margin:auto 0; font-size:15px; line-height:40px;}
+#root #signup-form #form-box form ul li .right > span {display:flex; margin:auto 11px 14px 0;}
+/* 크기가 작은 인풋 공통스타일 */
+#root #signup-form #form-box form ul li .right .input-style.small-input {width:190px;}
+#root #signup-form #form-box form ul li .right .input-style.gray-input {background:#f1f1f1; border:1px solid #ccc;}
+#root #signup-form #form-box form ul li .right .input-style.white-input {background:#fff; border:1px solid #ccc;}
+/* 크기가 중간인 인풋 공통스타일 */
+#root #signup-form #form-box form ul li .right .input-style.medium-input {width:316px;}
+/* 크기가 큰 인풋 공통스타일 */
+#root #signup-form #form-box form ul li .right .input-style.large-input {width:510px;}
+/* 크기가 제일 큰 인풋 공통스타일 */
+#root #signup-form #form-box form ul li .right .input-style.big-input {padding:13px 16px; width:713px; background-color:#f1f1f1; border:1px solid #ccc; margin:0 0 0 0;}
+/* 비밀번호 분실시 확인 질문 직접 입력 인풋 */
+#root #signup-form #form-box form ul li .right .pwd-search-question {width:100%;}
+#root #signup-form #form-box form ul li .right .pwd-search-question .input-style.pwd-search-question-input {width:510px; margin:10px 0 0 12px;}
+
+
+/* select box 스타일(비밀번호 분실시 확인 질문부분 , 이메일 주소 입력 부분) */
+#root #signup-form #form-box form ul li .right .pwd-search-question .pwd-search-question-select {width:265px; margin:auto 0; border-radius:5px; height:40px; border:1px solid #ffd7d2; background:#fff2f2; padding:0 0 0 8px; font-size:15px; color:#3a3a4a;}
+#root #signup-form #form-box form ul li .right .email-addr-select{width:138px; margin:auto 0; border-radius:5px; height:40px; border:1px solid #ffd7d2; background:#fff2f2; padding:0 0 0 8px; font-size:15px; color:#3a3a4a;}
+
+
+/* 회원가입 폼 내에 있는 버튼 공통 스타일 */
+#root #signup-form #form-box form ul li .right .signup-btn {background:#fff; border:0.5px solid #44465c; border-radius:5px; padding:0 16px; font-size:15px; color:#3a3a4a; cursor:pointer; margin:0 11px 0 0;}
+#root #signup-form #form-box form ul li .right .signup-btn.company-num-cfm {background:#44465c; color:#fff;}
+
+
+/* 홈페이지주소 입력 인풋 스타일 */
+#root #signup-form #form-box form ul li .right p {display:flex; position:relative; width:700px; padding:0 10px; border:1px solid #ccc; border-radius:5px;}
+#root #signup-form #form-box form ul li .right p span {z-index:1; position:absolute; left:10px; top:12px; width:700px; height:40px; color:#3a3a4a; font-size:15px;}
+#root #signup-form #form-box form ul li .right p .input-style.home-page-input{z-index:2; position:absolute; left:63px; top:2px; background:#fff; width:620px; height:35px; padding:13px 16px 13px 0; border:1px solid #fff;}
+
+
+/* 소식지 수신여부 라디오 버튼  */
+#root #signup-form #form-box form ul li .right .msg-check {width:100%;}
+#root #signup-form #form-box form ul li .right .msg-check span {margin:auto 35px auto 0; height:40px; line-height:40px;}
+#root #signup-form #form-box form ul li .right .msg-check span label {margin:0 0 0 7px; vertical-align:baseline; font-size:15px; color:#3a3a4a;}
+#root #signup-form #form-box form ul li .right .msg-check span input[type='radio'] {appearance:none; width:20px; height:20px; border:1px solid #ccc; border-radius:50%;}
+#root #signup-form #form-box form ul li .right .msg-check span input[type='radio']:checked {border:6px solid #44465c;}
+
+
+/* 폼 전송 버튼과 취소 버튼 ----------------------------------------------------------------------------------------- */
+#root #signup-form #form-box form .button-box {margin:30px 0; text-align:center;}
+#root #signup-form #form-box form .button-box .submit-btn {background:#ee0700; width:80px; height:48px; font-size:15px; font-weight:500; color:#fff; border:1px solid #ee0700; border-radius:5px; margin:0 7px;}
+#root #signup-form #form-box form .button-box .cancel-btn {background:#fff; width:80px; height:48px; font-size:15px; font-weight:500; color:#3a3a4a; border:1px solid #69727e; border-radius:5px; margin:0 7px;}
+
+
