@@ -351,7 +351,10 @@ class MemberComponent extends Component {
                 <div id='info-bar-box'>
                     <ul>
                         <li><strong>01</strong><span>약관동의</span></li>
-                        <li className='current-service'><strong>02</strong><span>가입정보입력</span></li>
+                        <li className='curr'>
+                            <strong>02</strong>
+                            <span>가입정보입력</span>
+                        </li>
                         <li><strong>03</strong><span>가입완료</span></li>
                     </ul>
                 </div>

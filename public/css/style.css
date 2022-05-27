@@ -13,10 +13,18 @@
 /* 현재 페이지 상태 보여주는 bar --------------------------------------------------------------------------------- */
 #root #signup-form #info-bar-box {width:100%; padding:0 0 40px 0;}
 #root #signup-form #info-bar-box ul {display:flex;}
-#root #signup-form #info-bar-box ul li {display:flex; width:297px; height:45px; border:1px solid #a7acb4; text-align:center;}
-#root #signup-form #info-bar-box ul .current-service::before {background:url(../../img/arrow-progress-on-2.png) no-repeat;}
+#root #signup-form #info-bar-box ul li {display:flex; width:33.333%; height:48px; line-height:48px; border:1px solid #a7acb4; text-align:center; justify-content:center; background:#f6f6f6;}
 #root #signup-form #info-bar-box ul li strong {font-size:18px; margin:0 10px;}
 #root #signup-form #info-bar-box ul li span {display:block; color:#3a3a4a; font-size:15px; font-weight:400;}
+#root #signup-form #info-bar-box ul li.curr {position:relative; float:left; line-height:48px; border:0; background:#44465c;}
+#root #signup-form #info-bar-box ul li.curr::before {content:''; position:absolute; top:0; left:-2px; width:22px; height:48px; border:0; background:url(../img/arrow-progress-on-2.png) no-repeat 50% 50%;}
+#root #signup-form #info-bar-box ul li.curr::after {content:''; position:absolute; top:0; right:-21px; width:22px; height:48px; border:0; background:url(../img/arrow-progress-on.png) no-repeat 50% 50%;}
+#root #signup-form #info-bar-box ul li.curr strong {color:#fff;}
+#root #signup-form #info-bar-box ul li.curr span {color:#fff;}
+
+
+
+#root #signup-form #info-bar-box ul li span.current-service-right::after {z-index:1; content:''; display:block; position:absolute; top:0; width:22px; height:45px; background:url(../img/arrow-progress-on.png) no-repeat 50% 50%;}
 
 
 /* 회원가입에 대한 설명이 있는 박스 -------------------------------------------------------------------------------- */
