@@ -21,6 +21,11 @@ class MemberComponent extends Component {
             // isInputOpen true이면 인풋 오픈 false이면 인풋 클로즈
             isInputOpen: false,
 
+            // 아이디, 비밀번호 형식 인포 텍스트를 위한 state
+            isAddInfoTextId: false,
+            isAddInfoTextPwd: false,
+            isAddInfoTextPwdCfm: false,
+
             phoneNum: '',
             faxNum: '',
             companyManager: '',
@@ -28,11 +33,15 @@ class MemberComponent extends Component {
             emailAddr: '',
             email1: '',
             email2: '',
+            // email2 인풋 비활성화를 위한 변수
+            isEmail2ReadOnly: false,
 
             homePage: '',
 
             msgCheck: ''
+            
         }
+        this.onChangePwdQuestion = this.onChangePwdQuestion.bind(this);
     }
 
 
@@ -66,29 +75,41 @@ class MemberComponent extends Component {
 
 
     // 아이디 입력
+    // 영문 + 숫자 6~10자 이내 조건 충족하도록 한다 
+    // 이를 충족하지 않을시 인풋 밑에 '아이디 형식을 확인해주세요'가 뜨도록 한다
     onChangeId = (e) => {
         if(this.state.companyNumCheckOrNot === false){
             alert('사업장관리번호확인 버튼을 클릭하여 사업장관리번호 검증을 수행하십시오.');
             return;
         } else {
             this.setState({id: e.target.value});
-            if(e.target.value.test() === true){
-                alert('아이디 형식을 확인해주세요.');
-                e.target.value.replace(, '');
+            if(/^(?=.*[a-zA-Z])+(?=.*[0-9])+.{6,10}$/g.test(e.target.value)){ 
+                this.setState({
+                    id: e.target.value,
+                    isAddInfoTextId: false
+                });
+            } else {
+                this.setState({isAddInfoTextId: true});
             }
-        }
+        } 
+        
     }
 
-    // 비밀번호 입력
+    // 비밀번호 입력   
     onChangePassword = (e) => {
         if(this.state.companyNumCheckOrNot === false){
             alert('사업장관리번호확인 버튼을 클릭하여 사업장관리번호 검증을 수행하십시오.');
             return;
         } else {
-            this.setState({
-                password: e.target.value,
-                passwordTest: /^(?=.*[a-zA-Z])+(?=.*[0-9])+(?=.*[\!\@\#\$])+.{9,12}$/g.test(e.target.value)
-            });
+            this.setState({password: e.target.value});
+            if(/^(?=.*[a-zA-Z])+(?=.*[0-9])+(?=.*[\!\@\#\$])+.{9,12}$/g.test(e.target.value)){
+                this.setState({
+                    password: e.target.value,
+                    isAddInfoTextPwd: false
+                });
+            } else {
+                this.setState({isAddInfoTextPwd: true});
+            }
         }
     }
 
@@ -98,20 +119,71 @@ class MemberComponent extends Component {
             alert('사업장관리번호확인 버튼을 클릭하여 사업장관리번호 검증을 수행하십시오.');
             return;
         } else {
-            this.setState({
-                passwordCfm: e.target.value
-            });
+            this.setState({passwordCfm: e.target.value});
+            if(this.state.password === e.target.value){  // 비밀번호와 같으면 
+                this.setState({
+                    passwordCfm: e.target.value,
+                    isAddInfoTextPwdCfm: false
+                });
+            } else {
+                this.setState({isAddInfoTextPwdCfm: true});
+            }
         }
     }
 
-    // 비밀번호 분실시 확인 질문 입력 - 질문 셀렉트 중 '직접 선택' 선택시
-    onChangePwdQuestionInput = (e) => {
-        if(this.state.companyNumCheckOrNot === false){
-            alert('사업장관리번호확인 버튼을 클릭하여 사업장관리번호 검증을 수행하십시오.');
-            return;
-        } else {
-            this.setState({pwdQuestion: e.target.value})
+
+    // 비밀번호 분실시 확인 질문 셀렉트
+    onChangePwdQuestion = (e) => {
+        this.setState({isInputOpen: false});
+
+        if(e.target.value === '나의 아버지 성함은?'){
+            // e.target.value는 바로 받아옴 
+            // 그런데 pwdQuestion을 쓰면 바로 저장이 안되고 
+            // 다른 셀렉트를 눌러야 이전에 선택한 값이 pwdQuestion에 저장되고 값을 볼 수 있음
+            // 한 박자씩 느린거 같음 왜 그런지 모르게씀...
+            this.setState({pwdQuestion: e.target.value});
+        } else if (e.target.value === '나의그리운고향은?') {
+            this.setState({pwdQuestion: e.target.value});
+        } else if (e.target.value === '나의첫째아이이름은?') {
+            this.setState({pwdQuestion: e.target.value});
+        } else if (e.target.value === '나의초등학교이름은?') {
+            this.setState({pwdQuestion: e.target.value});
+        } else if (e.target.value === '나의보물제1호는?') {
+            this.setState({pwdQuestion: e.target.value});
+        } else if (e.target.value === '기억에남는추억의장소는?') {
+            this.setState({pwdQuestion: e.target.value});
+        } else if (e.target.value === '나의인생좌우명은?') {
+            this.setState({pwdQuestion: e.target.value});
+        } else if (e.target.value === '내가좋아하는캐릭터는?') {
+            this.setState({pwdQuestion: e.target.value});
+        } else if (e.target.value === '추억하고싶은날짜가있다면?') {
+            this.setState({pwdQuestion: e.target.value});
+        } else if (e.target.value === '인상깊게읽은책이름은?') {
+            this.setState({pwdQuestion: e.target.value});
+        } else if (e.target.value === '내가가장존경하는인물은?') {
+            this.setState({pwdQuestion: e.target.value});
+        } else if (e.target.value === '가장기억에남는선생님성함은?') {
+            this.setState({pwdQuestion: e.target.value});
+        } else if (e.target.value === '내가받았던선물기억에남는선물은?') {
+            this.setState({pwdQuestion: e.target.value});
+        } else if (e.target.value === '직접입력') {
+            // 직접입력일땐 인풋에 직접 입력된 값을 가져와서 넣어줘야 한다. 
+            this.onChangePwdQInput();
         }
+        console.log('e.target.value : ', e.target.value);
+        console.log('pwdQuestion : ', this.state.pwdQuestion);
+    }
+
+    // 비밀번호 분실시 확인 질문 직접입력 인풋 생성 메소드
+    onChangePwdQInput = () => {
+        this.setState({
+            isInputOpen: true,
+        });
+    }
+
+    // 비밀번호 분실시 확인 질문 직접입력 입력 상태관리
+    onChangePwdQuestionInput = (e) => {
+        this.setState({pwdQuestion:e.target.value});
     }
 
     // 비밀번호 분실시 확인 답변 입력
@@ -123,6 +195,7 @@ class MemberComponent extends Component {
             this.setState({pwdQuestionResponse: e.target.value});
         }
     }
+
 
     // 전화번호 입력
     onChangePhoneNum = (e) => {
@@ -140,7 +213,7 @@ class MemberComponent extends Component {
             alert('사업장관리번호확인 버튼을 클릭하여 사업장관리번호 검증을 수행하십시오.');
             return;
         } else {
-            this.setState({faxNum: e.target.value})
+            this.setState({faxNum: e.target.value});
         }
     }
 
@@ -150,7 +223,7 @@ class MemberComponent extends Component {
             alert('사업장관리번호확인 버튼을 클릭하여 사업장관리번호 검증을 수행하십시오.');
             return;
         } else {
-            this.setState({companyManager: e.target.value})
+            this.setState({companyManager: e.target.value});
         }
     } 
 
@@ -160,69 +233,67 @@ class MemberComponent extends Component {
             alert('사업장관리번호확인 버튼을 클릭하여 사업장관리번호 검증을 수행하십시오.');
             return;
         } else {
-            this.setState({email1: e.target.value})
+            this.setState({email1: e.target.value});
         }
     }
 
-    // 이메일 주소 뒷 부분 입력
+    // 이메일 주소 뒷 부분 직접 입력
     onChangeEmail2 = (e) => {
+        e.preventDefault();
         if(this.state.companyNumCheckOrNot === false){
             alert('사업장관리번호확인 버튼을 클릭하여 사업장관리번호 검증을 수행하십시오.');
             return;
         } else {
-            this.setState({email2: e.target.value})
+            this.setState({email2: e.target.value});
         }
+    }
+    // 이메일 주소 뒷 부분 select
+    onChangeEmailAddr2 = (e) => {
+        e.preventDefault();
+        if(e.target.value === '직접입력'){
+            // 인풋 활성화 하고 입력하도록 한다
+            this.setState({
+                email2:'',
+                isEmail2ReadOnly: false
+            });
+        } else if(e.target.value === '네이버') {
+            // 정해진 데이터가 인풋에 들어가도록 하고 인풋은 비활성화한다
+            this.setState({
+                email2:'naver.com',
+                isEmail2ReadOnly: true
+            });
+        } else if(e.target.value === '네이트') {
+            this.setState({
+                email2:'nate.com',
+                isEmail2ReadOnly: true
+            });
+        } else if(e.target.value === '다음(한메일)') {
+            this.setState({
+                email2:'daum.net',
+                isEmail2ReadOnly: true
+            });
+        } else if(e.target.value === '야후') {
+            this.setState({
+                email2:'yahoo.com',
+                isEmail2ReadOnly: true
+            });
+        } else if(e.target.value === '한메일(MSN)') {
+            this.setState({
+                email2:'hanmail.net',
+                isEmail2ReadOnly: true
+            });
+        } else if(e.target.value === 'Gmail') {
+            this.setState({
+                email2:'gmail.com',
+                isEmail2ReadOnly: true
+            });
+        }
+
     }
 
     // 홈페이지 주소 입력
     onChangeHomePage = (e) => {
-        this.setState({homePage: e.target.value})
-    }
-
-
-    
-
-
-    // 비밀번호 분실시 확인 질문 셀렉트
-    onChangePwdQuestion = (e) => {
-        if(e.target.value === '나의 아버지 성함은?'){
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '나의 그리운 고향은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '나의 첫째아이 이름은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '나의 초등학교 이름은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '나의 보물 제1호는?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '기억에 남는 추억의 장소는?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '나의 인생 좌우명은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '내가 좋아하는 캐릭터는?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '추억하고 싶은 날짜가 있다면?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '인상 깊게 읽은 책 이름은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '내가 가장 존경하는 인물은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '가장 기억에 남는 선생님 성함은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '내가 받았던 선물 중 기억에 남는 선물은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '직접입력') {
-            // 직접입력일땐 인풋에 직접 입력된 값을 가져와서 넣어줘야 한다. 
-            this.state.onChangePwdQInput();
-        }
-        this.setState({pwdQuestion:e.target.value});
-        console.log('pwdQuestion : ',this.state.pwdQuestion);
-    }
-    // 비밀번호 분실시 확인 질문 직접입력 인풋 생성 메소드
-    onChangePwdQInput = () => {
-        if(this.state.pwdQuestion === '직접입력'){
-            this.setState({isInputOpen: true});
-        }
+        this.setState({homePage: e.target.value});
     }
 
 
@@ -235,6 +306,7 @@ class MemberComponent extends Component {
 
 
 
+    // 페이지 가장 하단=======================================================================
     // 폼 전송 -> 가입 정보 저장
     onSubmitFn = (e) => {
         e.preventDefault();
@@ -260,17 +332,20 @@ class MemberComponent extends Component {
         localStorage.setItem(inputObj.id, JSON.stringify(inputObj));
     }
 
+    // 취소 버튼 
+    onClickCancleBtn = (e) => {
+        e.preventDefault();
+        alert('회원가입을 취소하시겠습니까? 취소하시면 입력내용은 삭제됩니다.');
+        window.location.replace('/main')
+    }
 
+    
 
     render() {
         return (
-            <div id="signup-form">
+            <div id="signup-form"> 
                 <div id='page-title-box'>
                     <span>회원가입</span>
-                    <ul>
-                        <li><a href="#!"><i className='print-icon'></i></a></li>
-                        <li><a href='#!'><i className='share-icon'></i></a></li>
-                    </ul>
                 </div>
 
                 <div id='info-bar-box'>
@@ -318,7 +393,7 @@ class MemberComponent extends Component {
                                         type="text" 
                                         className='input-style big-input' 
                                         value={this.state.companySign} 
-                                        readonly
+                                        readOnly
                                         onInput={this.onInputAnnounceAlert}
                                         placeholder='사업장관리번호확인 버튼을 클릭하여 검증하시면 자동입력 됩니다.' 
                                     />
@@ -343,7 +418,7 @@ class MemberComponent extends Component {
                                 <div className='left'>
                                     <span className='red-dot'>아이디</span>
                                 </div>
-                                <div className='right'>
+                                <div className='right right-box'>
                                     <input 
                                         type="text" 
                                         className='input-style small-input' 
@@ -353,13 +428,26 @@ class MemberComponent extends Component {
                                         placeholder='영문+숫자 6~10자 이내' 
                                     />
                                     <button className='signup-btn'>아이디 중복검색</button>
+                                    <div className='info-text-box'>
+                                        <p className=
+                                            {
+                                                (
+                                                    this.state.isAddInfoTextId ? 
+                                                    'add-info-text' : 'delete-info-text'
+                                                    // isAddInfoText가 false이면 인포 텍스트를 보이지 않는것 즉, 형식에 맞게 썻다는 뜻 
+                                                    // isAddInfoText가 true이면 인포 텍스트를 보여줘야 하는것 즉, 형식에 맞지 않게 썻다는 뜻
+                                                )
+                                            }
+                                        >X 아이디는 영문과 숫자를 조합하여 6~10자 이내로 입력해주세요.</p>
+                                    </div>
                                 </div>
+                                
                             </li> 
                             <li>
                                 <div className='left'>
                                     <span className='red-dot'>비밀번호</span>
                                 </div>
-                                <div className='right'>
+                                <div className='right right-box'>
                                     <input 
                                         type="password" 
                                         className='input-style large-input' 
@@ -368,13 +456,23 @@ class MemberComponent extends Component {
                                         value={this.state.password} 
                                         placeholder='영문+숫자+특수문자(!@#$) 각 1자 이상 포함하여 9~12자 이내' 
                                     />
+                                    <div className='info-text-box'>
+                                        <p className=
+                                        {
+                                            (
+                                                this.state.isAddInfoTextPwd ? 
+                                                'add-info-text' : 'delete-info-text'
+                                            )
+                                        }
+                                        >X 영문+숫자+특수문자(!@#$) 각 1자 이상 포함하여 9~12자 이내로 입력해주세요.</p>
+                                    </div>
                                 </div>
                             </li> 
                             <li>
                                 <div className='left'>
                                     <span className='red-dot'>비밀번호확인</span>
                                 </div>
-                                <div className='right'>
+                                <div className='right right-box'>
                                     <input 
                                         type="password" 
                                         className='input-style large-input' 
@@ -383,6 +481,16 @@ class MemberComponent extends Component {
                                         value={this.state.passwordCfm} 
                                         placeholder='영문+숫자+특수문자(!@#$) 각 1자 이상 포함하여 9~12자 이내' 
                                     />
+                                    <div className='info-text-box'>
+                                        <p className=
+                                        {
+                                            (
+                                                this.state.isAddInfoTextPwdCfm ? 
+                                                'add-info-text' : 'delete-info-text'
+                                            )
+                                        }
+                                        >X 비밀번호가 일치하지 않습니다.</p>
+                                    </div>
                                 </div>
                             </li> 
                             <li>
@@ -391,30 +499,38 @@ class MemberComponent extends Component {
                                 </div>
                                 <div className='right'>
                                     <div className='pwd-search-question'>
-                                        <select className='pwd-search-question-select' onChange={this.onChangePwdQuestion} >
-                                            <option>질문을 선택하세요.</option>
-                                            <option value='나의 아버지 성함은?'>나의 아버지 성함은?</option>
-                                            <option value='나의 그리운 고향은?'>나의 그리운 고향은?</option>
-                                            <option value='나의 첫째아이 이름은?'>나의 첫째아이 이름은?</option>
-                                            <option value='나의 초등학교 이름은?'>나의 초등학교 이름은?</option>
-                                            <option value='나의 보물 제1호는?'>나의 보물 제1호는?</option>
-                                            <option value='기억에 남는 추억의 장소는?'>기억에 남는 추억의 장소는?</option>
-                                            <option value='나의 인생 좌우명은?'>나의 인생 좌우명은?</option>
-                                            <option value='내가 좋아하는 캐릭터는?'>내가 좋아하는 캐릭터는?</option>
-                                            <option value='추억하고 싶은 날짜가 있다면?'>추억하고 싶은 날짜가 있다면?</option>
-                                            <option value='인상 깊게 읽은 책 이름은?'>인상 깊게 읽은 책 이름은?</option>
-                                            <option value='내가 가장 존경하는 인물은?'>내가 가장 존경하는 인물은?</option>
-                                            <option value='가장 기억에 남는 선생님 성함은?'>가장 기억에 남는 선생님 성함은?</option>
-                                            <option value='내가 받았던 선물 중 기억에 남는 선물은?'>내가 받았던 선물 중 기억에 남는 선물은?</option>
+                                        <select 
+                                            className='pwd-search-question-select' 
+                                            name='pwd-search-question' 
+                                            onChange={(e) => this.onChangePwdQuestion(e)} 
+                                            defaultValue='질문을 선택하세요'
+                                        >
+                                            <option value='질문을선택하세요'>질문을 선택하세요</option>
+                                            <option value='나의아버지성함은?'>나의 아버지 성함은?</option>
+                                            <option value='나의그리운고향은?'>나의 그리운 고향은?</option>
+                                            <option value='나의첫째아이이름은?'>나의 첫째아이 이름은?</option>
+                                            <option value='나의초등학교이름은?'>나의 초등학교 이름은?</option>
+                                            <option value='나의보물제1호는?'>나의 보물 제1호는?</option>
+                                            <option value='기억에남는추억의장소는?'>기억에 남는 추억의 장소는?</option>
+                                            <option value='나의인생좌우명은?'>나의 인생 좌우명은?</option>
+                                            <option value='내가좋아하는캐릭터는?'>내가 좋아하는 캐릭터는?</option>
+                                            <option value='추억하고싶은날짜가있다면?'>추억하고 싶은 날짜가 있다면?</option>
+                                            <option value='인상깊게읽은책이름은?'>인상 깊게 읽은 책 이름은?</option>
+                                            <option value='내가가장존경하는인물은?'>내가 가장 존경하는 인물은?</option>
+                                            <option value='가장기억에남선생님성함은?'>가장 기억에 남는 선생님 성함은?</option>
+                                            <option value='내가받았던선물중기억에남는선물은?'>내가 받았던 선물 중 기억에 남는 선물은?</option>
                                             <option value='직접입력'>직접입력</option>
                                         </select>
 
+                                        {/* 이 인풋 박스는 상단 셀렉트 박스에서 '직접입력' 선택시에 보여지도록 한다  */}
                                         {
                                             this.state.isInputOpen && (
                                                 <input 
                                                     type='text' 
                                                     className='input-style pwd-search-question-input' 
-                                                    onChange={this.onChangePwdQuestionInput}
+                                                    onChange={(e) => this.onChangePwdQuestionInput(e)}
+                                                    autoFocus
+                                                    maxLength='20'
                                                     placeholder='질문을 직접 입력해주세요. 조회질문을 20자이내 (공란포함)입니다.' 
                                                 /> 
                                             )
@@ -449,6 +565,7 @@ class MemberComponent extends Component {
                                         onChange={this.onChangePhoneNum} 
                                         onInput={this.onInputAnnounceAlert}
                                         value={this.state.phoneNum}
+                                        maxLength='11'
                                         placeholder='"-(하이픈)"없이 입력(예:01012345678)' 
                                     />
                                 </div>
@@ -464,6 +581,7 @@ class MemberComponent extends Component {
                                         onChange={this.onChangeFaxNum} 
                                         onInput={this.onInputAnnounceAlert}
                                         value={this.state.faxNum}
+                                        maxLength='11'
                                         placeholder='"-(하이픈)"없이 입력(예:01012345678)' 
                                     />
                                 </div>
@@ -495,20 +613,44 @@ class MemberComponent extends Component {
                                         value={this.state.email1}
                                     />
                                     <span>@</span>
-                                    <input 
-                                        type='text' 
-                                        className='input-style small-input' 
-                                        onChange={this.onChangeEmail2}
-                                        value={this.state.email2}
-                                    />
-                                    <select name='email-addr' className='email-addr-select'>
-                                        <option>직접입력</option>
-                                        <option>네이버</option>
-                                        <option>네이트</option>
-                                        <option>다음(한메일)</option>
-                                        <option>야후</option>
-                                        <option>한메일(MSN)</option>
-                                        <option>Gmail</option>
+                                    {
+                                        // 자동입력인 경우
+                                        this.state.isEmail2ReadOnly && (
+                                        <input 
+                                            type='text' 
+                                            className='input-style small-input gray-input' 
+                                            onChange={this.onChangeEmail2}
+                                            value={this.state.email2}
+                                            readOnly
+                                        />
+                                        )
+                                    }
+                                    {
+                                        // 직접입력인 경우
+                                        !this.state.isEmail2ReadOnly && (
+                                        <input 
+                                            type='text' 
+                                            className='input-style small-input' 
+                                            onChange={this.onChangeEmail2}
+                                            value={this.state.email2}
+                                            autoFocus
+                                        />
+                                        )
+                                    }
+                                    
+                                    <select 
+                                        name='email-addr2' 
+                                        onChange={this.onChangeEmailAddr2} 
+                                        className='email-addr-select'
+
+                                    >
+                                        <option value='직접입력'>직접입력</option>
+                                        <option value='네이버'>네이버</option>
+                                        <option value='네이트'>네이트</option>
+                                        <option value='다음(한메일)'>다음(한메일)</option>
+                                        <option value='야후'>야후</option>
+                                        <option value='한메일(MSN)'>한메일(MSN)</option>
+                                        <option value='Gmail'>Gmail</option>
                                     </select>
                                 </div>
                             </li> 
@@ -561,7 +703,7 @@ class MemberComponent extends Component {
 
                         <div className='button-box'>
                             <button type='submit' className='submit-btn'>확인</button>
-                            <button className='cancel-btn'>취소</button>
+                            <button className='cancel-btn' onClick={this.onClickCancleBtn}>취소</button>
                         </div>
 
                     </form>
