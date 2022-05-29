@@ -133,44 +133,17 @@ class MemberComponent extends Component {
 
 
     // 비밀번호 분실시 확인 질문 셀렉트
-    onChangePwdQuestion = (e) => {
-        this.setState({isInputOpen: false});
+    onChangePwdQuestion = (value) => {
+        this.setState({
+            pwdQuestion: value,
+            isInputOpen: false
+        });
 
-        if(e.target.value === '나의 아버지 성함은?'){
-            // e.target.value는 바로 받아옴 
-            // 그런데 pwdQuestion을 쓰면 바로 저장이 안되고 
-            // 다른 셀렉트를 눌러야 이전에 선택한 값이 pwdQuestion에 저장되고 값을 볼 수 있음
-            // 한 박자씩 느린거 같음 왜 그런지 모르게씀...
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '나의그리운고향은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '나의첫째아이이름은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '나의초등학교이름은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '나의보물제1호는?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '기억에남는추억의장소는?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '나의인생좌우명은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '내가좋아하는캐릭터는?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '추억하고싶은날짜가있다면?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '인상깊게읽은책이름은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '내가가장존경하는인물은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '가장기억에남는선생님성함은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '내가받았던선물기억에남는선물은?') {
-            this.setState({pwdQuestion: e.target.value});
-        } else if (e.target.value === '직접입력') {
+        if(value === '직접입력') {
             // 직접입력일땐 인풋에 직접 입력된 값을 가져와서 넣어줘야 한다. 
             this.onChangePwdQInput();
         }
-        console.log('e.target.value : ', e.target.value);
+
         console.log('pwdQuestion : ', this.state.pwdQuestion);
     }
 
@@ -505,7 +478,7 @@ class MemberComponent extends Component {
                                         <select 
                                             className='pwd-search-question-select' 
                                             name='pwd-search-question' 
-                                            onChange={(e) => this.onChangePwdQuestion(e)} 
+                                            onChange={(e) => this.onChangePwdQuestion(e.target.value)} 
                                             defaultValue='질문을 선택하세요'
                                         >
                                             <option value='질문을선택하세요'>질문을 선택하세요</option>
